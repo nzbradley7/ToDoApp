@@ -1,9 +1,12 @@
 <script setup>
 const props = defineProps({
+    'id': String,
     'name': String,
-    'created': Date,
+    'created': String,
     'isCompleted': Boolean
 })
+const emits = defineEmits(['markComplete'])
+
 </script>
 
 <template>
@@ -12,6 +15,7 @@ const props = defineProps({
             <s v-if="isCompleted">{{ name }}</s>
             <span v-else>{{ name }}</span>
         </h4>
+        <button @click="$emit('markComplete', props.id, props.name, props.created, props.isCompleted)">Mark Complete</button>
     </div>
     <div><p>{{ created }}</p></div>
 </template>

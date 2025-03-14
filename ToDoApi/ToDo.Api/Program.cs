@@ -8,9 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
         .AddInfrastructure();
     builder.Services.AddCors(options =>
     {
-        options.AddPolicy(name: "AllowLocalOrigins", policy =>
+        options.AddDefaultPolicy(policy =>
         {
-            policy.WithOrigins("http://localhost:5173");
+            policy.WithOrigins("http://localhost:5173").AllowAnyHeader().AllowAnyMethod();
         });
     });
     builder.Services.AddControllers();
@@ -19,7 +19,7 @@ var app = builder.Build();
 {
     app.UseHttpsRedirection();
 
-    app.MapControllers().RequireCors("AllowLocalOrigins");
+    app.MapControllers();
 
     app.UseCors();
 
